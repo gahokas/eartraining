@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Ear Training</title>
+  </head>
+  <body>
+  <h1>Ear Training</h1>
+
+  <fieldset style="width: 33%">
+    <legend>Number of notes at a time:</legend>
+
+    <div>
+      <input type="radio" id="onenote" name="numberofnotes" value="1" onclick="showOneNoteChordOptions();"/>
+      <label for="onenote">One</label>
+    </div>
+
+    <div>
+      <input type="radio" id="twonotes" name="numberofnotes" value="2" onclick="showTwoNoteChordOptions();" />
+      <label for="twonotes">Two</label>
+    </div>
+
+    <div>
+      <input type="radio" id="threenotes" name="numberofnotes" value="3" onclick="showThreeNoteChordOptions();"/>
+      <label for="threenotes">Three</label>
+    </div>
+
+    <div>
+      <input type="radio" id="fournotes" name="numberofnotes" value="4" onclick=""/>
+      <label for="fournotes">Four</label>
+    </div>
+
+  </fieldset>
+
+  <br/>
+  <br/>
+  <fieldset style="width: 33%; display: none" id="twoNoteOptionsFieldset">
+    <legend>Two note chord options:</legend>
+
+    <div>
+      <input type="checkbox" id="minorsecond" name="twonoteoptions" value="min2" />
+      <label for="minorsecond">Minor 2nd</label>
+    </div>
+
+    <div>
+      <input type="checkbox" id="majorsecond" name="twonoteoptions" value="maj2" />
+      <label for="majorsecond">Major 2nd</label>
+    </div>
+
+    <div>
+      <input type="checkbox" id="minorthird" name="twonoteoptions" value="min3" />
+      <label for="minorthird">Minor 3rd</label>
+    </div>
+
+    <div>
+      <input type="checkbox" id="majorfourth" name="twonoteoptions" value="maj4" />
+      <label for="majorfourth">Major 4th</label>
+    </div>
+
+  </fieldset>
+
+  <fieldset style="width: 33%; display: none" id="threeNoteOptionsFieldset">
+    <legend>Three note chord options:</legend>
+
+    <div>
+      <input type="checkbox" id="majortriad" name="threenoteoptions" value="majortriad" />
+      <label for="majortriad">Major Triad (1,3,5)</label>
+    </div>
+
+    <div>
+      <input type="checkbox" id="minortriad" name="threenoteoptions" value="minortriad" />
+      <label for="minortriad">Minor Triad (1,3 minor,5)</label>
+    </div>
+
+    <div>
+      <input type="checkbox" id="sus2" name="threenoteoptions" value="sus2triad" />
+      <label for="sus2">Sus2 Triad (1,2,5)</label>
+    </div>
+
+    <div>
+      <input type="checkbox" id="sus4" name="threenoteoptions" value="sus4triad" />
+      <label for="sus4">Sus4 Triad (1,4,5)</label>
+    </div>
+
+  </fieldset>
+
+
+
+  <script>
+    function showOneNoteChordOptions() {
+      document.getElementById("twoNoteOptionsFieldset").style.display = "none";
+      document.getElementById("threeNoteOptionsFieldset").style.display = "none";
+    }
+
+    function showTwoNoteChordOptions() {
+      document.getElementById("twoNoteOptionsFieldset").style.display = "";
+      document.getElementById("threeNoteOptionsFieldset").style.display = "none";
+    }
+
+    function showThreeNoteChordOptions() {
+      document.getElementById("twoNoteOptionsFieldset").style.display = "none";
+      document.getElementById("threeNoteOptionsFieldset").style.display = "";
+    }
+
+  </script>
+
+  <br/>
+  <br/>
+
+    <button id="button" type="button" onclick="document.getElementById('wheatkings').play();document.getElementById('heartofgold').play();">Play music</button>
+
+    <br/>
+    <audio id="wheatkings" src="wheatkings.wav"></audio>
+    <br/>
+    <audio id="heartofgold" src="heartofgold.wav"></audio>
+    <br/>
+  </body>
+</html>
