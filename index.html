@@ -7,12 +7,18 @@
 
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <style>
+
+      .button_icon {
+        background-color: white;
+        border: none;
+        font-weight: bold;
+      }
       .material-symbols-outlined {
         font-size: 60px;
         cursor: pointer;
         font-variation-settings:
                 'FILL' 0,
-                'wght' 400,
+                'wght' 200,
                 'GRAD' 0,
                 'opsz' 24
       }
@@ -187,28 +193,75 @@
 
   <br/>
   <br/>
-   <button class="ng-star-inserted">
+   <button class="button_icon">
 
     <span class="material-symbols-outlined" onclick="twoNoteIntervals = findSelectedOptionsForCheckboxName('twonoteoptions');playTwoNoteIntervals();">
       play_circle
     </span>
 
-    <span class="icon-name mat-caption" style>Play</span>
+    <div class="icon_caption">Play</div>
    </button>
 
-  <span class="material-symbols-outlined" onclick="playTwoNoteIntervalsAgain();">
-    replay
-  </span>
+  <button class="button_icon">
+      <span class="material-symbols-outlined" onclick="playTwoNoteIntervalsAgain();">
+        replay
+      </span>
 
+    <div class="icon_caption">Play Again</div>
+
+  </button>
+
+  <!--
+
+<button class="button_icon">
   <span class="material-symbols-outlined">
     arrow_forward_ios
   </span>
+  <div class="icon_caption">Next</div>
 
+</button>
+
+<button class="button_icon">
   <span class="material-symbols-outlined">
     start
   </span>
+  <div class="icon_caption">Start</div>
+</button>
+
+<button class="button_icon">
+  <span class="material-symbols-outlined" >music_note</span>
+  <div class="icon_caption">Solo note</div>
+</button>
+
+<button class="button_icon">
+  <span class="material-symbols-outlined" >piano</span>
+  <div class="icon_caption">Solo note</div>
+</button>
+
+<button class="button_icon">
+  <span class="material-symbols-outlined" >headphones</span>
+  <div class="icon_caption">Solo note</div>
+</button>
+
+<button class="button_icon">
+  <span class="material-symbols-outlined" >volume_off</span>
+  <div class="icon_caption">Solo note</div>
+</button>
+
+-->
+
 
   <script>
+
+    function stopAll() {
+      var children = document.getElementById("audioFiles").children;
+      for (var i = 0; i < children.length; i++) {
+        var child = children[i];
+        child.pause();
+        child.currentTime = 0;
+      }
+    }
+
     function findSelectedOptionsForCheckboxName(name) {
       var checkboxGroup = document.getElementsByName(name);
       var checked = Array.from(checkboxGroup).filter(
@@ -225,9 +278,6 @@
       // var randomRootNote = getRandomInt(NOTES.length - currentOffset);
       var randomRootNote = 0;
       var secondNote = randomRootNote + currentOffset;
-
-      // alert(NOTES[randomRootNote] + " " + NOTES[secondNote]);
-
 
       //remove existing children if any
       const myNode = document.getElementById("audioFiles");
@@ -248,16 +298,37 @@
       document.getElementById("rootNoteNodeId").play();
       document.getElementById("intervalNoteNodeId").play();
 
+      //remove previous track icons
+      const node = document.getElementById("audioTrackIcons");
+      while (node.firstChild) {
+        node.removeChild(node.lastChild);
+      }
+
+      //add audio track icons
+      addTrackIcon("rootNoteNodeId", NOTES[randomRootNote]);
+      addTrackIcon("intervalNoteNodeId", NOTES[secondNote]);
+
+    }
+
+    function addTrackIcon(audioElementId, caption) {
+      var track1IconDiv = document.createElement("button");
+      track1IconDiv.setAttribute("class", "button_icon");
+      track1IconDiv.onclick = function() {stopAll();document.getElementById(audioElementId).play();}
+      var track1IconSpan = document.createElement("span");
+      track1IconSpan.setAttribute("class", "material-symbols-outlined");
+      track1IconSpan.innerText = "headphones";
+      track1IconDiv.appendChild(track1IconSpan);
+      var track1IconCaption = document.createElement("div");
+      track1IconCaption.setAttribute("class", "icon_caption");
+      track1IconCaption.innerText = caption;
+      track1IconDiv.appendChild(track1IconCaption);
+      document.getElementById("audioTrackIcons").appendChild(track1IconDiv);
     }
 
     function playTwoNoteIntervalsAgain() {
-      var children = document.getElementById("audioFiles").children;
-      for (var i = 0; i < children.length; i++) {
-        var child = children[i];
-        child.pause();
-        child.currentTime = 0;
-      }
+      stopAll();
 
+      var children = document.getElementById("audioFiles").children;
       for (var i = 0; i < children.length; i++) {
         var child = children[i];
         child.play();
@@ -274,6 +345,10 @@
 
     <span id="audioFiles">
     </span>
+
+    <div id="audioTrackIcons">
+
+    </div>
     <br/>
 <!--    <audio id="wheatkings" src="wheatkings.wav"></audio>-->
     <br/>
